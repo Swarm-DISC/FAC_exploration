@@ -1,0 +1,3 @@
+- file: README
+- file: notebooks/three_sat_atmuso_swarm
+- file: notebooks/find_3sat_conjunctions
