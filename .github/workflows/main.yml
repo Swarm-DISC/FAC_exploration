@@ -19,7 +19,7 @@ jobs:
               export CDF_LIB=/opt/conda/lib && \
               viresclient set_token https://vires.services/ows $VIRES_TOKEN && \
               viresclient set_default_server https://vires.services/ows && \
-              pip install jupyter-book \
+              pip install jupyter-book && \
               jupyter-book build .
               '
       - name: Deploy preview with netlify
