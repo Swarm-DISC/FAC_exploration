@@ -1,4 +1,12 @@
-on: [push, pull_request]
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
 jobs:
   run:
     name: Build Jupyter Book
@@ -22,5 +30,23 @@ jobs:
               pip install jupyter-book && \
               . ./build_book.sh
               '
-      - name: Deploy preview with netlify
-        run: netlify deploy --dir=_build/html --auth=${{ secrets.NETLIFY_AUTH_TOKEN }} --site=${{ secrets.NETLIFY_SITE_API_ID }}
+      - name: Deploy preview to Netlify
+        uses: nwtgck/actions-netlify@v1.2
+        with:
+          publish-dir: './_build/html'
+          production-deploy: false
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deploy from GitHub Actions - preview"
+          github-deployment-environment: preview
+          alias: preview-${{ github.event.number }}
+          enable-pull-request-comment: false
+          enable-commit-comment: false
+          overwrites-pull-request-comment: false
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        timeout-minutes: 1
+      - name: Test notebooks (nbmake)
+        run: |
+          pip install nbmake
+          pytest --nbmake
