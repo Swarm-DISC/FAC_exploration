@@ -6,7 +6,7 @@ Created on Tue Jan 26 11:09:38 2021
 @author: blagau
 """
 
-#SAVE INPUT AND OUTPUT TO ASCII FILES
+#SAVES INPUT AND OUTPUT TO ASCII FILES
 #====================================
 str_trange = dtime_beg.replace('-','')[:8]+'_'+ \
      dtime_beg.replace(':','')[11:17] + '_'+dtime_end.replace(':','')[11:17]
@@ -29,7 +29,7 @@ if tincl is not None:
         np.datetime_as_string(tincl[0])[11:19] + ' - ' + \
         np.datetime_as_string(tincl[1])[11:19]
     
-# export the results
+# exports the results
 out_df = j_df.copy()   
 text_trj = '# time [YYYY-mm-ddTHH:MM:SS.f],\t  Rmid_X [km],\t  Rmid_Y,\t\
   Rmid_Z,\t  Jfac [microA/m^2],\t  IRC,\t  errJfac,\t  errJirc,\t  '
@@ -54,7 +54,7 @@ out_df.to_csv(fname_out, mode='a', sep=",", na_rep = 'NaN', date_format='%Y-%m-%
 
 #PLOTS THE RESULTS
 #====================================
-# create fig and axes objects
+# creates fig and axes objects
 fig_size = (8.27,11.69)
 fig = plt.figure(figsize=fig_size, frameon=True)
 fig.suptitle('FAC density estimate with single-satellite method\n', size='xx-large',\
@@ -74,7 +74,7 @@ for ii in range(nrp):
     yle[ii] = (1 - yto) -  ratp[: ii+1].sum()*hun - ii*hsep
     yri[ii] = yle[ii] + hun*ratp[ii]
 
-# create axex for each panel
+# creates axes for each panel
 ax = [0] * nrp
 for ii in range(nrp):
     ax[ii] =  fig.add_axes([xle, yle[ii], xri-xle, hun*ratp[ii]])
@@ -83,7 +83,7 @@ for ii in range(nrp):
 for ii in range(nrp -1):
     ax[ii].set_xticklabels([])
     
-#Plot time-series quantities    
+#Plots time-series quantities    
 ax[0].plot(dB_df)
 ax[0].set_ylabel('$dB_{GEO}$ sw'+sat[0]+'\n[nT]', linespacing=1.7)
 ax[0].legend(['dB_X', 'dB_Y', 'dB_Z' ], loc='upper right')
@@ -146,7 +146,6 @@ for ii in range(len(locx)):
     
 ax[nrp-1].set_xticklabels(lab_fin)
 plt.figtext(0.01, 0.01, 'Time\nLat\nLon\nQLat\nQLon\nMLT')
-
 
 
 plt.show()
