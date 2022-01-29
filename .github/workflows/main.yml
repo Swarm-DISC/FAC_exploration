@@ -20,7 +20,7 @@ jobs:
               viresclient set_token https://vires.services/ows $VIRES_TOKEN && \
               viresclient set_default_server https://vires.services/ows && \
               pip install jupyter-book && \
-              jupyter-book build .
+              . ./build_book.sh
               '
       - name: Deploy preview with netlify
         run: netlify deploy --dir=_build/html --auth=${{ secrets.NETLIFY_AUTH_TOKEN }} --site=${{ secrets.NETLIFY_SITE_API_ID }}
