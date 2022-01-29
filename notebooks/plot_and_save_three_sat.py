@@ -6,6 +6,8 @@ Created on Mon Jan 20 12:05:43 2020
 @author: blagau
 """
 
+import numpy as np
+
 #SAVE INPUT AND OUTPUT TO ASCII FILES
 #====================================
 str_trange = dtime_beg.replace('-','')[:8]+'_'+ \

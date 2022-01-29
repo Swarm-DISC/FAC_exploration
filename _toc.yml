@@ -1,3 +1,7 @@
-- file: README
+format: jb-article
+root: README
+sections:
 - file: notebooks/three_sat_atmuso_swarm
 - file: notebooks/find_3sat_conjunctions
+- file: notebooks/single_sat_FAC
+- file: notebooks/single_sat_MVA
