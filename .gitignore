@@ -128,5 +128,12 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# Misc
+# jupyter-book
 _build
+
+# project-specific
+_pre_build/
+*.dat
+*.eps
+*.txt
+*.pdf

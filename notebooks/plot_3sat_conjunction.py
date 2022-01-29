@@ -26,7 +26,7 @@ fig.suptitle('Swarm conjunction interval: ' + tbeg.strftime('%Y-%m-%d') + \
              size='xx-large', fontweight = 'demibold', y=0.992)
 
 # PANEL PART
-# design the panel frames 
+# designes the panel frames 
 xle, xri, ybo, yto = 0.12, 0.94, 0.03, 0.06     # plot margins
 ratp = np.array([1.2, 0.6, 1.2, 0.6, 1.2, 0.6, 1., 1., 1.])         #relative hight of each panel 
 hsep = np.array([0., 0., 0.07, 0., 0.07, 0., 0.07, 0.0, 0.0])        # vspace between panels 
@@ -39,7 +39,7 @@ for ii in range(0, nrp):
     ylo[ii] = (1 - yto) -  ratp[: ii+1].sum()*hun - hsep[: ii+1].sum()
     yhi[ii] = ylo[ii] + hun*ratp[ii]
 
-# create axex for each panel
+# creates axex for each panel
 ax = [0] * nrp
 for ii in range(nrp):
     ax[ii] =  fig.add_axes([xle, ylo[ii], xri-xle, hun*ratp[ii]])
@@ -52,7 +52,7 @@ for ii in [6, 7, 8]:
     ax[ii].get_shared_x_axes().join(ax[6], ax[7], ax[8])
 
 
-#get the QDLat trend, sign, maximum value, and value at central FAC  
+#gets the QDLat trend, sign, maximum value, and value at central FAC  
 qd_trends_conj, qd_signs_conj, qd_max_conj, qd_aos_conj = \
             (np.zeros(3) for i in range(4))
 for ii in range(3):
@@ -61,7 +61,7 @@ for ii in range(3):
     qd_max_conj[ii] = df_int[ii]['QDLat'].abs().max()
     qd_aos_conj[ii] = qd_aos_3sc[ii][idxconj[ii]]
 
-# define the common QDLat range for the last three panels as:
+# defines the common QDLat range for the last three panels as:
 # - lower limit is the mean QDLat values of the central FACs, minus 7 degree
 # - upper value as +/- maximum QDLat absolute values
 # - the trend and sign is taken from SwarmA
@@ -71,13 +71,13 @@ qd_range = ss*np.array([abs(qd_aos_conj.mean().round()) - 7, np.ceil(qd_max_conj
 if ss*tt < 0:
     qd_range = np.flip(qd_range)
 
-# Plot title    
+# Plots title    
 ax[0].set_title('\ntime differences: ' + \
    '   swA - swB = ' +  str(int((timesFAC[0] - timesFAC[1]).total_seconds())) + \
    '   swC - swB = ' +  str(int((timesFAC[2] - timesFAC[1]).total_seconds())),\
           fontsize = 'xx-large', pad = 8) 
 
-# Plot the coresponding evolutions
+# Plots the coresponding evolutions
 for jj in range(nsc):
     df_int_sc = df_int[jj]
     # plot the fpanels with dBgeo data
@@ -87,7 +87,7 @@ for jj in range(nsc):
     ax[jj*2].axvline(timesFAC[1], ls='--', c='r')
     ax[jj*2].axvline(df_int_sc['QDLat'].abs().idxmax(), ls='-', c='b')
     
-    # plot the fpanels with filtered FAC data    
+    # plots the fpanels with filtered FAC data    
     ax[jj*2 + 1].plot(df_int_sc['FAC_flt_sup'], linewidth=2)
     ax[jj*2 + 1].set_ylabel('$J_{FAC}$\n[$\mu A/m^2$]', linespacing=1.7)
     ax[jj*2 + 1].axvline(timesFAC[jj], ls='--', c='k')
@@ -95,7 +95,7 @@ for jj in range(nsc):
     ax[jj*2 + 1].axvline(df_int_sc['QDLat'].abs().idxmax(), ls='-', c='b')
     ax[jj*2 + 1].axhline(0, ls='--', c='k')
 
-    # add QDLat, QDLon and MLT tick labels    
+    # adds QDLat, QDLon and MLT tick labels    
     locx = ax[jj*2 + 1].get_xticks()
     qdlat_ipl = np.round(np.interp(locx, mdt.date2num(df_int_sc.index), \
                             df_int_sc['QDLat']), decimals=2).astype('str')
@@ -128,7 +128,7 @@ for jj in range(nsc):
                    dBgeo[('dBgeo',sats[jj],cmp[ic])].values)
 
     ind_qd = (np.abs(ti_arr - tjhalf)).argmin()
-    # plot the last three panels with dBgeo as function of QDLat.
+    # plots the last three panels with dBgeo as function of QDLat.
     ax[jj + 6].plot(qd_arr, db_arr)
     ax[jj + 6].set_ylabel('$dB_{GEOC}$ sw'+sats[jj]+'\n[nT]', linespacing=1.7)
     ax[jj + 6].axvline(qd_aos_conj[jj], ls='--', c='k')

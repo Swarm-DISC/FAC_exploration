@@ -40,7 +40,7 @@ mva_results = 'MVA interval:  '+ \
     ' ' +r'$\mathrm{\div}$'+ '   ' + '{:.1f}'.format(np.max(ang[indok[:-1]])) + r'$^{\degree}$'       
          
     
-# export the results
+# exports the results
 with open(fname_out, 'w') as file:
     file.write('# Swarm sat: ' + str(sat[0]) + '\n')
     file.write('# Model: ' + Bmodel + '\n')
@@ -66,7 +66,7 @@ dBmva_df.iloc[indfile].to_csv(fname_out, mode='a', sep=",", date_format='%Y-%m-%
 
 #PLOTS THE RESULTS
 #====================================
-# create fig and axes objects
+# creates fig and axes objects
 fig_size = (8.27,11.69)
 fig = plt.figure(figsize=fig_size, frameon=True)
 fig.suptitle('MVA results on Swarm'+sat[0] + '  ' +\
@@ -88,7 +88,7 @@ for ii in range(nrp):
     yle[ii] = (1 - yto) -  ratp[: ii+1].sum()*hun - ii*hsep
     yri[ii] = yle[ii] + hun*ratp[ii]
 
-# create axex for each panel
+# creates axes for each panel
 ax = [0] * (nrp+1)
 for ii in range(nrp):
     ax[ii] =  fig.add_axes([xle, yle[ii], xri-xle, hun*ratp[ii]])
@@ -97,7 +97,7 @@ for ii in range(nrp):
 for ii in range(nrp -1):
     ax[ii].set_xticklabels([])
     
-#Plot time-series quantities    
+#Plots time-series quantities    
 ax[0].plot(dBnec_df)
 ax[0].set_ylabel('$dB_{GEO}$ sw'+sat[0]+'\n[nT]', linespacing=1.7)
 ax[0].axvline(tmva_int[0], ls='--', c='k')

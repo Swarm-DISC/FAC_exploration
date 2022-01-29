@@ -8,7 +8,7 @@ Created on Mon Jan 20 12:05:43 2020
 
 import numpy as np
 
-#SAVE INPUT AND OUTPUT TO ASCII FILES
+#SAVES INPUT AND OUTPUT TO ASCII FILES
 #====================================
 str_trange = dtime_beg.replace('-','')[:8]+'_'+ \
      dtime_beg.replace(':','')[11:17] + '_'+dtime_end.replace(':','')[11:17]
@@ -17,13 +17,13 @@ fname_in = 'input_3sat_atmuso_' + str_trange +'.dat'
 fname_out = 'FAC_swABC_atmuso_'+ str_trange +'.dat'
 fname_FlagsB = 'FlagsB_nonzero_'+ str_trange +'.dat'
 fname_fig = 'FAC_swABC_atmuso_'+ str_trange +'.eps'
-# export the input data
+# exports the input data
 with open(fname_in, 'w') as file:
     file.write('# time [%Y-%m-%dT%H:%M:%S],\tRsph'+str(sats)+' {lat [deg], lon [deg], Radius [m]}, \
     Bsw'+str(sats)+' {NEC [nT]},\tBmod'+str(sats)+' {NEC [nT]}\n')
 RsphBswBmod.to_csv(fname_in, mode='a', sep=",", date_format='%Y-%m-%dT%H:%M:%S', \
                    float_format='%15.5f', header=False)
-# export the results
+# exports the results
 namecol =  ['Rcx','Rcy','Rcz','ux ','uy ','uz ', 'angBN ', 'log_CN3 ', 'Jfac ', 'errJ']
 dfResults = pd.DataFrame(np.concatenate((Rc, nuvec, angBN.values[...,None],CN3.values[...,None], 
                      Jfac.values[...,None], errJ.values[...,None]), axis=1),
@@ -37,7 +37,7 @@ with open(fname_out, 'w') as file:
     log_CN3,\t  Jfac [microA/m^2],\terrJ [microA/m^2]\n')
 dfResults.to_csv(fname_out, mode='a', sep=",", date_format='%Y-%m-%dT%H:%M:%S.%f', float_format='%15.5f', 
                      header=False)
-# export times with poor VFM data quality (if applicable)
+# exports times with poor VFM data quality (if applicable)
 if (dfFB.sum(axis=0).sum(0) > 0 or datagaps['A'].size) :
     with open(fname_FlagsB, 'w') as file:
         file.write('#T ime stamps with nonzero FlagsB:\n')
@@ -53,13 +53,13 @@ if (dfFB.sum(axis=0).sum(0) > 0 or datagaps['A'].size) :
 
 #PLOTS THE RESULTS
 #====================================
-# create fig and axes objects
+# creates fig and axes objects
 fig_size = (8.27,11.69)
 fig = plt.figure(figsize=fig_size, frameon=True)
 fig.suptitle('FAC density estimate with three-sat. method\n', size='xx-large', y=0.995)
 
 # PANEL PART
-# designe the panel frames 
+# designes the panel frames 
 xle, xri, ybo, yto = 0.125, 0.95, 0.3, 0.07     # plot margins
 ratp = np.array([1, 1, 1, 0.7, 0.7, 1.5, 0.7 ]) #relative hight of each panel 
 hsep = 0.005                                    # vspace between panels 
@@ -72,7 +72,7 @@ for ii in range(nrp):
     yle[ii] = (1 - yto) -  ratp[: ii+1].sum()*hun - ii*hsep
     yri[ii] = yle[ii] + hun*ratp[ii]
 
-# create axex for each panel
+# creates axex for each panel
 ax = [0] * nrp
 for ii in range(nrp):
     ax[ii] =  fig.add_axes([xle, yle[ii], xri-xle, hun*ratp[ii]])
@@ -81,7 +81,7 @@ for ii in range(nrp):
 for ii in range(nrp -1):
     ax[ii].set_xticklabels([])
     
-#Plot time-series quantities    
+#Plots time-series quantities    
 ax[0].plot(RsphBswBmod[('Bsw','A')] - RsphBswBmod[('Bmod','A')])
 ax[0].set_title('Time interval: ' + dtime_beg[:10]+'  ' +\
               dtime_beg[11:19] + ' - '+dtime_end[11:19] +'\n' + \
@@ -115,7 +115,7 @@ ax[5].legend(['$\mathrm{J_{ABC}}$', '$\mathrm{J_{L2}}$'], loc = (0.95, 0.1), \
 ax[6].plot(errJ)
 ax[6].set_ylabel('errJ\n[$\mu A/m^2$]', linespacing=1.7)
 
-# design the multiple line xticklabels
+# designes the multiple line xticklabels
 XYsq = Rc[:,0]**2 + Rc[:,1]**2
 Rcr = np.sqrt(XYsq + Rc[:,2]**2)            
 latc = np.degrees(np.arctan2(Rc[:,2],np.sqrt(XYsq)))    
@@ -135,18 +135,22 @@ plt.figtext(0.01, 0.255, 'Time\nLat\nLon')
 
 
 # INSET PART
-# designe the insets to plot s/c constellation 
+# designes the insets to plot s/c constellation 
 xmar, ymar, xsep = 0.1, 0.04, 0.05
 xwi = (1 - 2*xmar - 2*xsep)/3. # inset width
 rat = fig_size[0]/fig_size[1]       # useful to fix the same scales on x and y 
 
-# create axex for each panel
+# creates axes for each panel
 ax_conf = [0, 0, 0.]
 for ii in range(3):
     ax_conf[ii] =  fig.add_axes([xmar + ii*(xwi+xsep), ymar, xwi, xwi*rat])
 
 
 ic=np.array([1, R.shape[0]//2, R.shape[0]-2])   # indexes for ploting the s/c
+# for ii in range(len(ax)):                         # uncomment to plot vertical lines at dt[ic]
+#     for jj in range(len(ic)):
+#         ax[ii].axvline(x=dt[ic[jj]], ls=(0,(5,10)), lw=1, color='k')
+        
 Ri_nec = np.full((len(ic),nsc,3),np.nan)
 Vi_nec = np.full((len(ic),nsc,3),np.nan)
 nlim_nec = np.zeros((len(ic), 2))
@@ -172,13 +176,13 @@ for ii in range(len(ic)):
     Vi_nec[ii, :, :] = np.matmul(trmat_i, Vi_geo_unit[...,None]).reshape(Vi_geo.shape)
     
     
-# compute the (common) range along N and E
+# computes the (common) range along N and E
 dn_span = max(nlim_nec[:,0] - nlim_nec[:,1])
 de_span = max(elim_nec[:,0] - elim_nec[:,1])
 d_span = max(np.concatenate((nlim_nec[:,0] - nlim_nec[:,1], 
                              elim_nec[:,0] - elim_nec[:,1])))*1.2
 
-# plot the s/c positions
+# plots the s/c positions
 icolor = ['b', 'g', 'r']
 for ii in range(len(ic)):
     norig = np.mean(nlim_nec[ii, :])
@@ -202,9 +206,6 @@ ax_conf[2].legend(['swA','swB','swC'], loc = (0.98, 0.7), \
        handlelength=1, ncol = 1)
 
 
-
 plt.show()
 
 fig.savefig(fname_fig)
-
-

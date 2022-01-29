@@ -1,7 +1,21 @@
-format: jb-article
+format: jb-book
 root: README
-sections:
-- file: notebooks/three_sat_atmuso_swarm
-- file: notebooks/find_3sat_conjunctions
-- file: notebooks/single_sat_FAC
-- file: notebooks/single_sat_MVA
+parts:
+- caption: Notebooks
+  chapters:
+  - file: notebooks/single_sat_FAC
+  - file: notebooks/single_sat_MVA
+  - file: notebooks/dual_sat_FAC
+  - file: notebooks/FAC_quality_indicators
+  - file: notebooks/find_3sat_conjunctions
+  - file: notebooks/three_sat_FAC
+- caption: Scripts & Modules
+  chapters:
+  - file: _pre_build/funcs_fac.py
+  - file: _pre_build/plot_3sat_conjunction.py
+  - file: _pre_build/plot_and_save_dual_sat.py
+  - file: _pre_build/plot_and_save_single_sat_MVA.py
+  - file: _pre_build/plot_and_save_single_sat.py
+  - file: _pre_build/plot_and_save_three_sat.py
+  - file: _pre_build/plot_qi.py
+  - file: _pre_build/save_qi.py
