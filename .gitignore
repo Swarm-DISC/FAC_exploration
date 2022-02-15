@@ -133,7 +133,7 @@ _build
 
 # project-specific
 _pre_build/
-*.dat
-*.eps
-*.txt
-*.pdf
+notebooks/*.dat
+notebooks/*.eps
+notebooks/*.txt
+notebooks/*.pdf
