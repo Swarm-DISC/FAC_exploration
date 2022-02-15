@@ -15,7 +15,7 @@ ss = sats[0]+sats[1]
 fname_in = 'input_dual_sat_atmuso_' + str_trange +'.dat'
 fname_out = 'FAC_sw'+ss+'_atmuso_'+ str_trange +'.dat'
 # fname_FlagsB = 'FlagsB_nonzero_'+ str_trange +'.dat'
-fname_fig = 'FAC_sw'+ss+'_atmuso_'+ str_trange +'.eps'
+fname_fig = 'FAC_sw'+ss+'_atmuso_'+ str_trange +'.pdf'
 # export the results
 namecol =  ['Rcx','Rcy','Rcz','ux ','uy ','uz ', 'angBN ', \
             'log_CN ', 'Jfac ', 'errJ ', 'Jrad']

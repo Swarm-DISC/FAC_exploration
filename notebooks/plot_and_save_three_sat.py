@@ -16,7 +16,7 @@ str_trange = dtime_beg.replace('-','')[:8]+'_'+ \
 fname_in = 'input_3sat_atmuso_' + str_trange +'.dat'
 fname_out = 'FAC_swABC_atmuso_'+ str_trange +'.dat'
 fname_FlagsB = 'FlagsB_nonzero_'+ str_trange +'.dat'
-fname_fig = 'FAC_swABC_atmuso_'+ str_trange +'.eps'
+fname_fig = 'FAC_swABC_atmuso_'+ str_trange +'.pdf'
 # exports the input data
 with open(fname_in, 'w') as file:
     file.write('# time [%Y-%m-%dT%H:%M:%S],\tRsph'+str(sats)+' {lat [deg], lon [deg], Radius [m]}, \
