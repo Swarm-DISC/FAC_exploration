@@ -1,5 +1,8 @@
+# Compiles the Jupyter Book from .ipynb & .py
+#  1. Converts .py files to .md, referenced in _toc.yml
+#  2. Builds the book
 jupyter-book clean . --all
-echo "Creating dummy .md files in _prebuild directory"
+echo "Creating temporary .md files in _prebuild directory"
 mkdir -p _pre_build
 rm -rf _pre_build/*
 annotation="**NB: Do not use the download button above. Go to the repository on GitHub to access the files.**"
