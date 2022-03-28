@@ -7,6 +7,9 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+env:
+  DOCKER_IMAGE: 'registry.gitlab.eox.at/esa/vires_vre_ops/vre-swarm-notebook:0.10.3'
+
 jobs:
   run:
     name: Build Jupyter Book
@@ -15,13 +18,13 @@ jobs:
       - name: Pull docker image
         run: |
           echo ${{ secrets.EOX_REGISTRY_PASSWORD }} | docker login -u ${{ secrets.EOX_REGISTRY_USER }} --password-stdin registry.gitlab.eox.at
-          docker pull registry.gitlab.eox.at/esa/vires_vre_ops/vre-swarm-notebook:0.8.2
+          docker pull ${{ env.DOCKER_IMAGE }}
       - uses: actions/checkout@v2
       - name: Execute notebooks and build book
         run: |
           docker run -v $GITHUB_WORKSPACE:/home/jovyan -u root \
             -e VIRES_TOKEN=${{ secrets.VIRES_TOKEN }} \
-            registry.gitlab.eox.at/esa/vires_vre_ops/vre-swarm-notebook:0.8.2 \
+            ${{ env.DOCKER_IMAGE }} \
             bash -c \
               '
               export CDF_LIB=/opt/conda/lib && \
