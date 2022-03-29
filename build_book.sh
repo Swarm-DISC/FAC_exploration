@@ -1,7 +1,10 @@
 # Compiles the Jupyter Book from .ipynb & .py
-#  1. Converts .py files to .md, referenced in _toc.yml
-#  2. Builds the book
-jupyter-book clean . --all
+#  1. Clear notebook outputs, including kernel metadata
+#     (removing the kernelspec helps ensure that the current kernel is used instead)
+#  2. Convert .py files to .md, referenced in _toc.yml
+#  3. Build the book, caching the notebooks' executed states
+pre-commit run --all
+# jupyter-book clean . --all
 echo "Creating temporary .md files in _prebuild directory"
 mkdir -p _pre_build
 rm -rf _pre_build/*

@@ -7,6 +7,7 @@ Created on Mon Jan 20 12:05:43 2020
 """
 
 import numpy as np
+import matplotlib.patches as mpatches
 
 #SAVES INPUT AND OUTPUT TO ASCII FILES
 #====================================
@@ -202,8 +203,12 @@ ax_conf[1].set_xlabel('North [km]')
 ax_conf[1].set_yticklabels([])
 ax_conf[2].set_xlabel('North [km]')
 ax_conf[2].set_yticklabels([])
-ax_conf[2].legend(['swA','swB','swC'], loc = (0.98, 0.7), \
-       handlelength=1, ncol = 1)
+label_patches = [
+    mpatches.Patch(color=c, label=l) for c, l in zip(icolor, ('swA', 'swB', 'swC'))
+]
+ax_conf[2].legend(
+    handles=label_patches, loc=(0.98, 0.7), handlelength=1, ncol = 1
+)
 
 
 plt.show()

@@ -9,3 +9,7 @@ This software is related to the Swarm [SIFACIT project](https://earth.esa.int/eo
  - Adrian Blagau (Institute for Space Sciences, Bucharest)
  - Joachim Vogt (Jacobs University Bremen) 
  - Maintainer: Ashley Smith (University of Edinburgh)
+
+## For more...
+
+See [Swarm Notebooks](https://swarm.magneticearth.org)
