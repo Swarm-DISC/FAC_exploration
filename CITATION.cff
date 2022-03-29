@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "Swarm FAC Exploration"
+repository-code: "https://github.com/Swarm-DISC/FAC_exploration"
+authors:
+  - family-names: Blagau
+    given-names: Adrian
+  - family-names: Vogt
+    given-names: Joachim
+  - family-names: Smith
+    given-names: Ashley R. A.
+    orcid: https://orcid.org/0000-0001-5198-9574

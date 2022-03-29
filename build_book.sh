@@ -1,5 +1,11 @@
-jupyter-book clean . --all
-echo "Creating dummy .md files in _prebuild directory"
+# Compiles the Jupyter Book from .ipynb & .py
+#  1. Clear notebook outputs, including kernel metadata
+#     (removing the kernelspec helps ensure that the current kernel is used instead)
+#  2. Convert .py files to .md, referenced in _toc.yml
+#  3. Build the book, caching the notebooks' executed states
+pre-commit run --all
+# jupyter-book clean . --all
+echo "Creating temporary .md files in _prebuild directory"
 mkdir -p _pre_build
 rm -rf _pre_build/*
 annotation="**NB: Do not use the download button above. Go to the repository on GitHub to access the files.**"

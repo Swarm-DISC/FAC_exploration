@@ -12,7 +12,7 @@ str_trange = dtime_beg.replace('-','')[:8]+'_'+ \
      dtime_beg.replace(':','')[11:17] + '_'+dtime_end.replace(':','')[11:17]
 
 fname_out = 'FAC_'+rez+'_sw'+sat[0]+'_atmuso_'+ str_trange +'.dat'
-fname_fig = 'FAC_'+rez+'_sw'+sat[0]+'_atmuso_'+ str_trange +'.eps'
+fname_fig = 'FAC_'+rez+'_sw'+sat[0]+'_atmuso_'+ str_trange +'.pdf'
 
 bad_ang = np.less(np.abs(np.cos(ang_BR*np.pi/180.)), np.cos(np.deg2rad(60)))
 

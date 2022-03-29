@@ -7,6 +7,7 @@ Created on Mon Jan 20 12:05:43 2020
 """
 
 import numpy as np
+import matplotlib.patches as mpatches
 
 #SAVES INPUT AND OUTPUT TO ASCII FILES
 #====================================
@@ -16,7 +17,7 @@ str_trange = dtime_beg.replace('-','')[:8]+'_'+ \
 fname_in = 'input_3sat_atmuso_' + str_trange +'.dat'
 fname_out = 'FAC_swABC_atmuso_'+ str_trange +'.dat'
 fname_FlagsB = 'FlagsB_nonzero_'+ str_trange +'.dat'
-fname_fig = 'FAC_swABC_atmuso_'+ str_trange +'.eps'
+fname_fig = 'FAC_swABC_atmuso_'+ str_trange +'.pdf'
 # exports the input data
 with open(fname_in, 'w') as file:
     file.write('# time [%Y-%m-%dT%H:%M:%S],\tRsph'+str(sats)+' {lat [deg], lon [deg], Radius [m]}, \
@@ -202,8 +203,12 @@ ax_conf[1].set_xlabel('North [km]')
 ax_conf[1].set_yticklabels([])
 ax_conf[2].set_xlabel('North [km]')
 ax_conf[2].set_yticklabels([])
-ax_conf[2].legend(['swA','swB','swC'], loc = (0.98, 0.7), \
-       handlelength=1, ncol = 1)
+label_patches = [
+    mpatches.Patch(color=c, label=l) for c, l in zip(icolor, ('swA', 'swB', 'swC'))
+]
+ax_conf[2].legend(
+    handles=label_patches, loc=(0.98, 0.7), handlelength=1, ncol = 1
+)
 
 
 plt.show()

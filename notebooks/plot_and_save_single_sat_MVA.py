@@ -26,7 +26,7 @@ str_fname = (tmva_int[0].astype(dtm.datetime)).strftime("%Y%m%d_%H%M%S") +\
 indfile = np.where((ti >= trange[0]) & (ti <= trange[1]))[0]
 
 fname_out = 'MVA_sw'+sat[0] + '_'+ str_fname +'.dat'
-fname_fig = 'MVA_sw'+sat[0] + '_'+ str_fname +'.eps'
+fname_fig = 'MVA_sw'+sat[0] + '_'+ str_fname +'.pdf'
 
 mva_results = 'MVA interval:  '+ \
      tmva_int[0].astype(dtm.datetime).strftime("%H:%M:%S") + ' - ' + \
