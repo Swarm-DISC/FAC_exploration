@@ -1,10 +1,12 @@
 # Compiles the Jupyter Book from .ipynb & .py
-#  1. Clear notebook outputs, including kernel metadata
-#     (removing the kernelspec helps ensure that the current kernel is used instead)
-#  2. Convert .py files to .md, referenced in _toc.yml
-#  3. Build the book, caching the notebooks' executed states
-pre-commit run --all
-# jupyter-book clean . --all
+#  1. Re-introduce a standardised kernelspec to nb metadata (cleared by pre-commit)
+#  2. Convert .py files to .md, adding annotations in each, and referenced in _toc.yml
+#  3. Use jupyter-book to execute notebooks and create the html
+
+# Fix the notebooks' metadata
+python adjust_nb_metadata.py
+
+# Create the modified .py files as .md to include in book
 echo "Creating temporary .md files in _prebuild directory"
 mkdir -p _pre_build
 rm -rf _pre_build/*
@@ -14,4 +16,6 @@ do
 printf '%s\n\n%s\n\n```python\n%s\n```' "# $f" "$annotation" "$(cat notebooks/$f)" > _pre_build/$f.md
 echo "Converted $f to $f.md"
 done
+
+# Build the book
 jupyter-book build .
